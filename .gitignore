@@ -1,0 +1,42 @@
+#eclipse files
+.project
+.settings
+
+#webstorm
+.idea/
+
+# temp files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+#log files
+.log
+
+# project specific ignore
+add-on/
+node_modules/
+bower_components/
+build/*
+docs/*
+!.placeholder
+
+# Vim swap files
+*.sw*
+
+# grunt tools
+.dist/*
+.tmp
+.tmp/*
+dist/*
+/dist/
+
+
+cache/files/*.cache
+bin/developer.json
+
+# 下载测试文件
+test/assets/test_download_*
+
+npm-debug.log
+temp.js

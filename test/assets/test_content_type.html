@@ -1,0 +1,128 @@
+<!DOCTYPE HTML>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Laser - 大街网前端架构</title>
+		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;amp;subset=latin,latin-ext">
+		<link media="all" rel="stylesheet" href="css/style.css" type="text/css" />
+		<script src="js/d3.js" type="text/javascript"></script>
+	</head>
+	<body class="inner">
+		<section id="content">
+		<header>
+		<section id="logo">
+		<a href="./index.html" title="大街网前端架构">Laser</a>
+		</section>
+		<nav class="clearfix">
+		<a href="./index.html">Home</a>
+		<a href="./api.html">Api</a>
+		<a href="./git-flow.html" class="active">Git-Flow</a>
+		<a href="./deploy.html">Deploy</a>
+		<a href="./link.html">Links</a>
+		</nav>
+		</header>
+		<ul id="menu">
+			<li>
+			<a href="#principle">开发原则</a>
+			</li>
+			<li>
+			<a href="#standard">具体规范</a>
+			</li>
+			<li>
+			<a href="#naming">命名规范</a>
+			</li>
+			<li>
+			<a href="#demo">流程示例</a>
+			</li>
+			<li>
+			<a href="#laser.git">laser git</a>
+			</li>
+		</ul>
+		<div id="right">
+			根据大街网实际情况和前端开发经验,创建出大街网前端工作流.并开发相关工具和命令保证流程的正确.也因为采用了独创的<span class="code-tip">替死鬼</span>分支,保证现在开发分支代码的安全.包括一套脚本工具和一个合并系统:
+			<ul>
+				<li><a href="#laser.git">laser git</a></li>
+				<li><a href="deploy.html#deploy">分支合并系统(自动同步svn)</a></li>
+			</ul>
+			<p>注意:有比较多的概念比如开发者角色,远程分支等等,具体可在 dj-git-flow.md 中查看</p>
+			<section>
+			<h3 id="principle">开发原则:</h3>
+			<ul>
+				<li>master代码全都是通过测试的</li>
+				<li>分支命名区分新旧架构</li>
+			</ul>
+			<h3 id="standard">具体规范:</h3>
+			<ol>
+				<li>所有代码全部在分支上进行开发</li>
+				<li>分支代码提交测试前,应先合并master主干代码</li>
+				<li>开发环境和沙盒环境使用前端代码为分支代码</li>
+				<li>预发布环境和线上环境使用master主干代码</li>
+				<li>分支命名必须遵循<a href="#">分支命名规范</a></li>
+			</ol>
+
+			<h3 id="naming">分支命名规则</h3>
+			<ol>
+				<li>命名中禁止出现<span class="code-err">中文</span>和<span class="code-err">大写字符</span> </li>
+				<li>远程分支命名中第一个字符表示功能,第二个字符表示新旧架构</li>
+				<li>第一个标识符:local本地功能分支 bug:本地bug分支 f(eature):远程功能分支 h(otfix):远程bug分支</li>
+				<li>第二个标识符:a(sssets)表示旧架构,s(tatic)表示新架构,用在远程分支中</li>
+				<li>远程库名字必须命名为`presandbox`</li>
+			</ol>
+			<p>详细情况以及示例可以查看<a href="http://ued.dajie.com/ued/laser/tree/master/dj-git-flow.md">dj-git-flow.md</a></p>
+			<p>常见问题:</p>
+			<p> 大写字符会在Jenkins部署的时候出问题,如果QA反应分支名正确,但是却部署不成功?大多数情况是因为分支名字出现了大写字符</p>
+			<p>我已经添加了presandbox,但是系统还是提示我没有添加? 即使添加完成后还需要执行一下<code>git remote update</code>命令</p>
+			</section>
+			<section>
+			<h3 id="demo">流程示例:</h3>
+				<p>在执行`laser git push`的时候,自动更新master分支,和最新代码进行合并</p>
+				<p>在沙盒测试通过并经QA邮件确认后,可以使用`dj-deploy`把远程分支代码合并到master分支上,具体查看<a href="">合并系统</a></p>
+				<p><span class="code-tip">提示:</span>点击灰色区域进行逐步演示</p>
+
+				<h4>单人开发</h4>
+				<div id="sigle" onclick="update('sigle')"></div>
+				<h4>多人开发</h4>
+				<div id="multi" onclick="update('multi')"></div>
+			</section>
+
+			<section>
+				<h3 id="laser.git">laser git</h3>
+				<p><code>Usage: laser git &lt;command&gt;</code></p>
+				<p><code>Commands: new merge push</code></p>
+				<p>用简单的命令保证工作流低成本正确运行</p>
+				<p>因为采用了`<span class="code-tip">替死鬼</span>`分支,所以任何情况下合并分支都是`安全`的,不会对当前开发分支代码造成影响</p>
+				<h4>laser git new</h4>
+				<p><code>Usage: git-flow new -f|-h|-m $PRO</code></p>
+				<p>options:</p>
+				<ul>
+					<li>-f: 基于当前分支创建新开发分支</li>
+					<li>-h: 基于master创建bug分支,会自动更新master</li>
+					<li>-m: 在当前开发分支下创建基于master的新开发分支,会自动更新master(<span class="code-tip">TODO</span>)</li>
+				</ul>
+				<p>使用本命令可以创建新分支,保证在基于master的时候自动更新master代码</p>
+				<h4>laser git merge</h4>
+				<p><code>Usage: git-flow merge $REMOTE_BRANCH</code></p>
+				<p>合并任意远程分支到本地开发分支</p>
+				<p><span class="code-tip">注意</span>:</p>
+				<ul>
+					<li>根据开发原则,`develper`角色无法操作master,所以命令会自动判断当前不在master分支下,才会顺利进行</li>
+					<li>远程分支名必须为`presandbox`</li>
+				</ul>
+
+				<h4>laser git push</h4>
+				<p><code>Usage: git-flow push $REMOTE_BRANCH</code></p>
+				<p>把当前分支与最新master代码合并后,提交到远程分支</p>
+				<p><span class="code-tip">注意</span>:</p>
+				<ul>
+					<li>系统会自动更新master,与最新的主干代码进行合并</li>
+					<li>如果是多人同时开发一个远程分支,请先合并远程分支.即`laser git push`之前先执行`laser git merge`</li>
+				</ul>
+
+
+			</section>
+
+		</div>
+		</section>
+		<script src="js/git-flow.js" type="text/javascript"></script>
+	</body>
+</html>
