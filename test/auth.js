@@ -58,6 +58,23 @@ describe('AUTH generateToken', function() {
 		var tokenWithHeader = auth.generateToken(sk, reqWithHeader, body);
 		tokenWithHeader.should.equal('+V7+A8ib9uLqix87F8BRfTbcHSg=');
 
-	})
+	});
+
+	it('should generate a legal signature with policy', function() {
+		var policy = {
+			"expiration": "2016-02-01T12:00:00.000Z",
+			"conditions": [
+				["eq","$bucket", "ks3-sdk-test"],
+				["starts-with", "$key", ""],
+				["starts-with","$acl", "public-read"],
+				["starts-with", "$name", ""]
+			]
+		};
+
+		var stringToSign = new Buffer(JSON.stringify(policy)).toString('base64');
+		var signature = auth.getSignature(sk, stringToSign);
+
+		signature.should.equal('psfeyCuOqPkR0+FToocad5ypNmk=');
+	});
 });
 

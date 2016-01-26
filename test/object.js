@@ -51,6 +51,32 @@ describe('API Object', function() {
 					done();
 				});
 			});
+			it('upload a object with string content with key name including /', function(done) {
+				var client = new KS3(ak, sk, bucketName);
+				var content = 'Hello world3';
+				var key = '/test.中//\\文?？.key///';
+				client.object.put({
+						Bucket: bucketName,
+						Key: key,
+						Body: content
+					},
+					function(err, data, res) {
+						should.not.exist(err);
+						res.should.have.status(200);
+						client.object.get({
+							Bucket:bucketName,
+							Key:key
+						},function(err,data,res){
+							//console.log('__dirname :' + __dirname);
+							var fileName = path.join(__dirname,'assets/test_download_file_4_slash_key.txt');
+							data.should.have.length(12);
+							fs.writeFileSync(fileName, data);
+							done();
+						});
+
+					});
+			});
+
 			it('put object and set acl', function(done) {
 				var client = new KS3(ak, sk, bucketName);
 				var content = 'Hello world';
@@ -84,7 +110,7 @@ describe('API Object', function() {
 					},function(err,data,res){
 						var fileName = path.join(__dirname,'assets/test_download_file.txt');
 						data.should.have.length(11);
-						fs.writeFileSync(fileName,data);
+						fs.writeFileSync(fileName, data);
 						done();
 					});
 				});

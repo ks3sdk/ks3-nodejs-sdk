@@ -8,6 +8,12 @@
 
 ### 安装
 
+下载后安装
+```
+npm install
+```
+
+通过npm直接安装
 ```
 npm install ks3
 ```
@@ -53,7 +59,7 @@ var client = new KS3(AK,SK);
 `ks3.bucket.put` : 创建一个新的Bucket   
 `ks3.bucket.del` : 删除指定Bucket     
 `ks3.bucket.get` : 枚举Bucket内的Object   
-`ks3.bucket.head` : 获取bucket元数据     
+`ks3.bucket.head` : 获取Bucket元数据
 `ks3.bucket.getACL` : 获取Bucket ACL   
 `ks3.bucket.putACL` : 设置Bucket的acl  
 `ks3.bucket.getLogging` : 获得Bucket的日志信息   
@@ -62,8 +68,8 @@ var client = new KS3(AK,SK);
 `ks3.object.del` : 删除指定Object  
 `ks3.object.get` : 下载该Object数据    
 `ks3.object.put` : 上传Object数据  
-`ks3.object.getAcl` : 获得Bucket的acl  
-`ks3.object.putAcl` : 上传object的acl  
+`ks3.object.getAcl` : 获得Object的acl
+`ks3.object.putAcl` : 上传Object的acl
 `ks3.object.headObject` : 获取指定Object元数据  
 `ks3.object.multitpart_upload_init` : 调用这个接口会初始化一个分块上传并且返回一个upload id, upload id 用来标识属于当前object的具体的块，并且用来标识完成分块上传或者取消分块上传  
 `ks3.object.upload_part` : 初始化分块上传后，上传分块接口  

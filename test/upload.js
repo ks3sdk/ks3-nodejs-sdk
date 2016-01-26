@@ -30,7 +30,7 @@ describe('upload a file', function() {
 		function(err, data, res) {
 			should.not.exist(err);
 			res.should.have.status(200);
-			done();
+			done(); //对于回调链来说done实际上意味着告诉mocha从此处开始测试，一层层回调回去。
 		});
 	});
 

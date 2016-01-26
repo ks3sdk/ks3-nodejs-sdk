@@ -12,7 +12,7 @@ describe('KS3 instantiation', function() {
 		}).should.throw ('require ak and sk. visit: http://ks3.ksyun.com/doc/api/index.html. ak=AccessKeyID,sk=AccessKeySecret')
 	});
 
-	it('shoule not require bucketName',function(){
+	it('should not require bucketName',function(){
 		true && (function() {
 			var client = new KS3(ak,sk);
 		}).should.not.throw ()

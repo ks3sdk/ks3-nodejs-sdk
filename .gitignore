@@ -4,6 +4,7 @@
 
 #webstorm
 .idea/
+*.iml
 
 # temp files
 .DS_Store
