@@ -40,4 +40,5 @@ bin/developer.json
 test/assets/test_download_*
 
 npm-debug.log
-temp.js
+localtest.js
+
