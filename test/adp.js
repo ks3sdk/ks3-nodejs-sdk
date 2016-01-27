@@ -29,7 +29,7 @@ describe('Asynchronous Data Processing', function () {
                 function (err, data, res) {
                     should.not.exist(err);
                     res.should.have.status(200);
-                    console.log(JSON.stringify(res));
+                    //console.log(JSON.stringify(res));
 
                     //下载加过水印的图片到assets目录
                     setTimeout(getAdpResult, 2000);
