@@ -117,6 +117,33 @@ describe('API Object', function() {
 					});
 				});
 			});
+
+			it('upload a object with content type && get the object', function(done) {
+				var client = new KS3(ak, sk, bucketName);
+				var buf = new Buffer('<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8" /><title>测试</title></head><body>testing page for gulp-ks3</body></html>');
+				var key = 'test_upload_buffer';
+				client.object.put({
+						Bucket: bucketName,
+						Key: key,
+						Body: buf
+					},
+					function(err, data, res) {
+						client.object.get({
+							Bucket:bucketName,
+							Key:key
+						},function(err,data,res){
+							var fileName = path.join(__dirname,'assets/test_download_file.html');
+							res.headers['content-type'].should.equal('text/html; charset=utf-8');
+							fs.writeFileSync(fileName, data);
+							done();
+						});
+					}
+					,{
+						'Content-Type':'text/html'
+					}
+				);
+			});
+
 			it('upload a object with file content && get a object', function(done) {
 				var client = new KS3(ak, sk, bucketName);
 				var fileName = 'photo.jpg';
