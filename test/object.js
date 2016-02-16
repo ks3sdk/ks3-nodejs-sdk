@@ -97,6 +97,7 @@ describe('API Object', function() {
 			it('upload a object with buffer content && get a object', function(done) {
 				var client = new KS3(ak, sk, bucketName);
 				var buf = new Buffer('Hello world');
+
 				var key = 'test_upload_buffer.txt';
 				client.object.put({
 					Bucket: bucketName,
@@ -110,6 +111,7 @@ describe('API Object', function() {
 					},function(err,data,res){
 						var fileName = path.join(__dirname,'assets/test_download_file.txt');
 						data.should.have.length(11);
+
 						fs.writeFileSync(fileName, data);
 						done();
 					});
@@ -208,7 +210,6 @@ describe('API Object', function() {
 				res.should.have.status(200);
 				should.exist(data.InitiateMultipartUploadResult.UploadId);
 				(data.InitiateMultipartUploadResult.UploadId).should.have.length(32);
-				client.object
 				done();
 			});
 		});

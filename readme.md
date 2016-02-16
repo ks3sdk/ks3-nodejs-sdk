@@ -79,6 +79,8 @@ var client = new KS3(AK,SK);
 `ks3.upload.start` : 文件(文件夹)上传
  
 
+SDK方法详细介绍参见，[SDK详细介绍](http://ks3.ksyun.com/doc/sdk/nodejs.html#sdk详细介绍)
+
 
 
 
