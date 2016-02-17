@@ -39,6 +39,8 @@ bin/developer.json
 # 下载测试文件
 test/assets/test_download_*
 
+#npm
 npm-debug.log
+.npmignore
 localtest.js
 
