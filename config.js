@@ -1,4 +1,5 @@
 var path = require('path');
+
 module.exports = {
 	protocol:'http',
 	baseUrl:'kss.ksyun.com',
@@ -23,6 +24,16 @@ module.exports = {
 	retries:20,
 	// 上传文件信息缓存地址
 	cachePath:path.join(__dirname,'./cache/files/'),
-	// 
-	region:''
+	// 区域
+	region:'',
+	// endpoint 常量
+	ENDPOINT : {
+		HANGZHOU : 'kss.ksyun.com',
+		AMERICA: 'ks3-us-west-1.ksyun.com',
+		BEIJING : 'ks3-cn-beijing.ksyun.com'
+	},
+	reset: function(){
+		this.baseUrl = this.ENDPOINT.HANGZHOU;
+		this.region = '';
+	}
 }
