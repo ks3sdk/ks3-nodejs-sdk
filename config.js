@@ -32,7 +32,11 @@ module.exports = {
 		AMERICA: 'ks3-us-west-1.ksyun.com',
 		BEIJING : 'ks3-cn-beijing.ksyun.com'
 	},
-	reset: function(){
+	setRegion: function(region) {
+		this.region = region;
+		this.baseUrl = this.ENDPOINT[region];
+	},
+	resetRegion: function(){
 		this.baseUrl = this.ENDPOINT.HANGZHOU;
 		this.region = '';
 	}
