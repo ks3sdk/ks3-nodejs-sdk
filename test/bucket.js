@@ -1,7 +1,6 @@
 var KS3 = require('..');
 var should = require('should');
 require('should-http');
-var config = require('../config');
 var ak = process.env.AK || 'WRHLHOZQD3OY3VTROMGQ';
 var sk = process.env.SK || 'dWSmyMmVcpahaZphUdyVz11myMIoCAsOKeZ6wi4T';
 var bucketName = process.env.BUCKET || 'ks3-sdk-test';
@@ -24,22 +23,6 @@ describe('API bucket', function() {
 				})
 			});
 		});
-		it('create bucket to specified region && delete bucket', function(done) {
-			config.setRegion('BEIJING');
-			client.bucket.put({
-				Bucket: bucketName
-			}, function(err, data, res) {
-				should.not.exist(err);
-				res.should.have.status(200);
-				client.bucket.del(function(err, data, res) {
-					should.not.exist(err);
-					res.should.have.status(204); // 删除bucket，成功的状态码为204
-					config.resetRegion();
-					done();
-				})
-			});
-		});
-
 		it('require Bucket not pass verify', function() {
 			(function() {
 				client.bucket.put({Bucket: 'test_tes'}, function() {});
@@ -49,8 +32,10 @@ describe('API bucket', function() {
 			(function() {
 				client.bucket.put({Bucket: bucketName, ACL: 'testacl'}, function() {});
 			}).should.throw('the illegal acl');
-		})
+		});
+
 	});
+
 	describe('other handle for bucket', function() {
 		var client = new KS3(ak, sk, bucketName);
 		beforeEach(function(){
@@ -154,6 +139,25 @@ describe('API bucket', function() {
 					client.bucket.getACL(function(err, data, res){})
 				}).should.throw('require the bucketName');
 			})
+		});
+	});
+
+
+	describe('create bucket to specified region', function() {
+		it('create bucket to specified region && delete bucket', function(done) {
+			var bucketName = 'test-sdk' + (+new Date());
+			var client = new KS3(ak, sk, bucketName,'BEIJING');
+			client.bucket.put({
+				Bucket: bucketName
+			}, function(err, data, res) {
+				should.not.exist(err);
+				res.should.have.status(200);
+				client.bucket.del(function(err, data, res) {
+					should.not.exist(err);
+					res.should.have.status(204); // 删除bucket，成功的状态码为204
+					done();
+				})
+			});
 		});
 	});
 		
