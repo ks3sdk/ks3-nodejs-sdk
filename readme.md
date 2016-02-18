@@ -1,10 +1,10 @@
 # KS3-SDK-Nodejs
 
-[![Build Status](https://travis-ci.org/ks3sdk/ks3-nodejs-sdk.svg?branch=master)](https://travis-ci.org/ks3sdk/ks3-nodejs-sdk)
+
 
 本代码库为`金山云存储KS3`服务.主要提供`KS3 nodejs SDK`和`命令行工具`.
 
-[![Build Status](https://api.travis-ci.org/StoneRen/ks3-node-sdk.svg)](https://travis-ci.org/StoneRen/ks3-node-sdk)
+[![Build Status](https://travis-ci.org/ks3sdk/ks3-nodejs-sdk.svg?branch=master)](https://travis-ci.org/ks3sdk/ks3-nodejs-sdk)
 
 ## Nodejs-sdk
 
