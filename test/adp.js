@@ -11,14 +11,11 @@ var bucketName = process.env.BUCKET || 'ks3-sdk-test';
 
 describe('Asynchronous Data Processing', function () {
     var client = new KS3(ak, sk, bucketName);
-    beforeEach(function () {
-        client.bucket.put(function (err, data, res) {
-        });
-    });
 
     describe('Upload Trigger Processing', function () {
-        it('put a image and trigger a addition of watermark', function (done) {
-            var key = 'test_upload_photo.jpg';
+        it('avscrnshot: put a video and trigger a screen shot', function (done) {
+            var key = 'a.mp4';
+            var resultKey = 'screenshot_a.png';
             var filePath = path.join(__dirname, './assets/' + key);
 
             client.object.put({
@@ -31,26 +28,66 @@ describe('Asynchronous Data Processing', function () {
                     res.should.have.status(200);
                     //console.log(JSON.stringify(res));
 
-                    //下载加过水印的图片到assets目录
+                    //下载视频截图图片到assets目录
                     setTimeout(getAdpResult, 2000);
 
                     function getAdpResult() {
                         client.object.get({
                             Bucket: bucketName,
-                            Key: 'watermarked_' + key
+                            Key: resultKey
                         }, function (err, data, res, originData) {
                             should.not.exist(err);
-                            var newFileName = path.join(__dirname, 'assets/watermarked_' + key);
+                            var newFileName = path.join(__dirname, 'assets/' + resultKey);
                             fs.writeFileSync(newFileName, originData);
                             done();
                         });
                     }
                 },
                 {
-                    'kss-async-process': 'tag=imgWaterMark&type=2&dissolve=65&gravity=NorthEast&text=6YeR5bGx5LqR&font=5b6u6L2v6ZuF6buR&fill=I2JmMTcxNw==&fontsize=500&dy=10&dx=20|tag=saveas&bucket=' + bucketName + '&object=watermarked_' + key,
+                    'kss-async-process': 'tag=avscrnshot&ss=1&res=640x360&&rotate=90|tag=saveas&bucket=' + bucketName + '&object=' + new Buffer(resultKey).toString('base64'),
+                    'kss-notifyurl': 'http://10.4.2.38:19090/'
+                });
+        });
+
+        it('avop : encode a video to flv format', function (done) {
+            var key = 'a.mp4';
+            var resultVideoName =  key.split('.')[0] + '1.flv';
+
+            client.object.put({
+                    Bucket: bucketName,
+                    Key: key,
+                    subResource:'adp',
+                    isNoContent: true
+                },
+                function (err, data, res) {
+                    should.not.exist(err);
+                    res.should.have.status(200);
+
+                    //通过HEAD请求验证转码后的flv文件是否存在
+                    setTimeout(headAdpResult, 6000);
+
+                    function headAdpResult() {
+                        client.object.head({
+                                Key: resultVideoName
+                            },
+                            function(err, data, res) {
+                                should.not.exist(err);
+                                res.should.have.status(200);
+                                done();
+                            }
+                        );
+                    }
+                },
+                {
+                    'kss-async-process': 'tag=avop&f=flv&res=x480&as=1&vbr=128k|tag=saveas&bucket=' + bucketName + '&object=' + new Buffer(resultVideoName).toString('base64'),
                     'kss-notifyurl': 'http://10.4.2.38:19090/'
                 });
         });
     });
-});
 
+
+    after(function () {
+
+    });
+
+});

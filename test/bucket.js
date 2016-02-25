@@ -9,7 +9,7 @@ describe('API bucket', function() {
 
 	describe('create bucket', function() {
 		var bucketName = 'test-sdk' + (+new Date());
-		var client = new KS3(ak, sk, bucketName);
+		var client = new KS3(ak, sk, bucketName, 'HANGZHOU');
 		it('create bucket && delete bucket', function(done) {
 			client.bucket.put({
 				Bucket: bucketName
@@ -142,23 +142,5 @@ describe('API bucket', function() {
 		});
 	});
 
-
-	describe('create bucket to specified region', function() {
-		it('create bucket to specified region && delete bucket', function(done) {
-			var bucketName = 'test-sdk' + (+new Date());
-			var client = new KS3(ak, sk, bucketName,'BEIJING');
-			client.bucket.put({
-				Bucket: bucketName
-			}, function(err, data, res) {
-				should.not.exist(err);
-				res.should.have.status(200);
-				client.bucket.del(function(err, data, res) {
-					should.not.exist(err);
-					res.should.have.status(204); // 删除bucket，成功的状态码为204
-					done();
-				})
-			});
-		});
-	});
 		
 });

@@ -1,0 +1,7 @@
+[
+    {"region": "BEIJING", "bucket": "ks3-sdk-test-bj"},
+    {"region": "HONGKONG", "bucket": "ks3-sdk-test-hk"},
+    {"region": "AMERICA", "bucket": "ks3-sdk-test-us"},
+    {"region": "SHANGHAI", "bucket": "ks3-sdk-test-sh"}
+
+]

@@ -30,7 +30,9 @@ module.exports = {
 	ENDPOINT : {
 		HANGZHOU : 'kss.ksyun.com',
 		AMERICA: 'ks3-us-west-1.ksyun.com',
-		BEIJING : 'ks3-cn-beijing.ksyun.com'
+		BEIJING : 'ks3-cn-beijing.ksyun.com',
+		HONGKONG: 'ks3-cn-hk-1.ksyun.com',
+		SHANGHAI: 'ks3-cn-shanghai.ksyun.com'
 	},
 	setRegion: function(region) {
 		this.region = region;
