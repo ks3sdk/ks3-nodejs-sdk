@@ -18,11 +18,10 @@
 	```
 	npm install -g ks3
 	```
-- 最新版安装
+- 尝鲜版安装
 
 	```
-	git clone $gitpath --depth=1
-	npm install -g ./ks3-node-sdk
+	npm install -g ks3@next
 	```
 
 ## 命令解释

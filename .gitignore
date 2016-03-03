@@ -38,6 +38,7 @@ bin/developer.json
 
 # 下载测试文件
 test/assets/test_download_*
+test/assets/screenshot*
 
 #npm
 npm-debug.log

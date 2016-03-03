@@ -8,6 +8,8 @@ var nconf = require('nconf');
 
 require('colorful').colorful();
 var uploadignore = require('./uploadignore');
+var xml2json = require("../lib/util").xml2json;
+var config = require('../config');
 
 /**
  * 配置文件
@@ -49,6 +51,13 @@ var check = {
 		} else {
 			throw new Error('    key不符合规范,http://ks3.ksyun.com/doc/api/index.html#bucket')
 		}
+	},
+	region: function(region) {
+		if(region in config.ENDPOINT ) {
+			return region;
+		}else {
+			throw new Error('    region不存在，有效值： HANGZHOU|BEIJING|HONGKONG|AMERICA|SHANGHAI')
+		}
 	}
 }
 
@@ -63,7 +72,7 @@ program.on('--help', function() {
 /**
  * 初始化操作:
  */
-program.command('init').description('命令初始化,设置个人信息').option("-a --ak [ak]", "上传文件要存储到的Bucket").option("-s --sk [sk]", "上传文件要存储到的Bucket").option("-b --bucket [bucket]", "上传文件要存储到的Bucket").action(function(options) {
+program.command('init').description('命令初始化,设置个人信息').option("-a --ak [ak]", "上传文件要存储到的Bucket").option("-s --sk [sk]", "上传文件要存储到的Bucket").option("-b --bucket [bucket]", "上传文件要存储到的Bucket").option("-r --region [region]", "Bucket所在的Region").action(function(options) {
 	init(options);
 });
 /**
@@ -75,14 +84,14 @@ program.command('reset').description('重置当前配置').action(function() {
 /**
  * 上传操作
  */
-program.command('upload').description('上传文件或者文件夹').option("-p --path [path]", "选择要上传的文件的地址").option("-b --bucket [bucket]", "上传文件要存储到的Bucket").option("-k --key [key]", "文件(文件夹)存储名称").option("--withsubdir", "是否上传子文件夹").action(function(options) {
+program.command('upload').description('上传文件或者文件夹').option("-p --path [path]", "选择要上传的文件的地址").option("-b --bucket [bucket]", "上传文件要存储到的Bucket").option("-k --key [key]", "文件(文件夹)存储名称").option("--withsubdir", "是否上传子文件夹").option("-r --region [region]", "目标Bucket所在的Region").action(function(options) {
 	upload(options);
 });
 
 /**
  * 下载文件,还不支持下载文件夹
  */
-program.command('download').description('下载文件').option("-p --path [path]", "选择下载文件的存放地址").option("-b --bucket [bucket]", "下载文件所在的Bucket").option("-k --key [key]", "下载文件的名称").action(function(options) {
+program.command('download').description('下载文件').option("-p --path [path]", "选择下载文件的存放地址").option("-b --bucket [bucket]", "下载文件所在的Bucket").option("-k --key [key]", "下载文件的名称").option("-r --region [region]", "Bucket所在的Region").action(function(options) {
 	download(options);
 });
 
@@ -95,12 +104,13 @@ if (!program.args.length) program.help();
  */
 
 /**
- * 存储ak,sk
+ * 存储ak,sk,bucket和region
  */
 function init(options) {
 	var akStr = options.ak || '';
 	var skStr = options.sk || '';
 	var bucketStr = options.bucket || '';
+	var regionStr = options.region || '';
 
 	console.log('    请按照指示完成配置信息:');
 	console.log('    关于AK和SK,相关文档请访问:http://ks3.ksyun.com/doc/console/index.html');
@@ -108,6 +118,7 @@ function init(options) {
 	var stepAK = 'AK(AccessKey)*:  ';
 	var stepSK = 'SK(Access Key Secret)*:   ';
 	var stepBucket = 'Bucket:   ';
+	var stepRegion = 'Region:   ';
 
 	async.series([function(callback) {
 		if (!akStr) {
@@ -180,6 +191,30 @@ function init(options) {
 		} else {
 			callback(null, bucketStr)
 		}
+	},
+	function(callback) {
+		if (!regionStr) {
+			promptly.prompt(stepRegion, {
+					validator: check.bucketName,
+					default:
+						regionStr
+				},
+				function(err, regionStr) {
+					if (err) {
+						console.error(err);
+						return err.retry()
+					} else {
+						callback(null, regionStr);
+					}
+				});
+			if ( !! nconf.get('REGION')) {
+				try{
+					process.stdin.emit('data', nconf.get('REGION'));
+				} catch (e){}
+			}
+		} else {
+			callback(null, regionStr)
+		}
 	}], function(err, results) {
 		if (err) {
 			console.log(err);
@@ -207,6 +242,7 @@ function reset() {
 			nconf.set('AK', '');
 			nconf.set('SK', '');
 			nconf.set('BUCKET', '');
+			nconf.set('REGION','');
 			nconf.save();
 			console.log('   已经清空配置和上次历史记录');
 		}
@@ -221,12 +257,14 @@ function upload(options) {
 	var stepPath = '    PATH: ';
 	var stepBucket = '    Bucket: ';
 	var stepKey = '    Key: ';
+	var stepRegion = '    Region: ';
 	var akStr = nconf.get('AK') || '';
 	var skStr = nconf.get('SK') || '';
 	var filePath = options.path || '';
-	var bucketStr = options.bucket || '';
+	var bucketStr = options.bucket || nconf.get('BUCKET') || '';
 	var keyStr = options.key || '';
 	var withsubdir = options.withsubdir ? options.withsubdir: false;
+	var regionStr = options.region || nconf.get('REGION') || '';
 
 	if (akStr === '' || skStr === '') {
 		console.error('  还没有进行初始化设置,请先使用命令 `ks3 init` 进行初始化');
@@ -303,6 +341,16 @@ function upload(options) {
 			} else {
 				callback(null, keyStr);
 			}
+		},
+		function(callback) {
+			if (!regionStr) {
+				var region = 'HANGZHOU';
+				nconf.set('REGION', region);
+				nconf.save();
+				callback(null, region);
+			} else {
+				callback(null, regionStr);
+			}
 		}], function(err, results) {
 			if (err) {
 				console.log(err);
@@ -311,31 +359,37 @@ function upload(options) {
 				var flag = "----------------------------";
 				var bucket = results[0];
 				var key = results[1];
+				var region = results[2];
 				nconf.set('BUCKET', bucket);
+				nconf.set('REGION',region);
 				nconf.save();
+
+				var client = new KS3(akStr, skStr, bucket, region);
 
 				console.log('    开始上传');
 				console.log(flag);
-				var client = new KS3(akStr, skStr, bucket);
+
 				filePath = filePath.replace(/(\\\s)/ig, ' ');
 
 				client.upload.start({
-					Bucket: bucket,
-					filePath: filePath,
-					Key: key,
-					fileSetting: {
-						isDeep: withsubdir,
-						ignore: uploadignore
-					}
-				},
-				function(err, data, res) {
-					if (err) {
-						console.log(err);
-						throw err;
-					}
+						Bucket: bucket,
+						filePath: filePath,
+						Key: key,
+						fileSetting: {
+							isDeep: withsubdir,
+							ignore: uploadignore
+						}
+					},
+					function(err, data, res) {
+						if (err) {
+							console.log(err);
+							throw err;
+						}
 
-					console.log(flag + '\n  上传完毕');
-				});
+						console.log(flag + '\n  上传完毕');
+					}
+				);
+
 			}
 		})
 	}
@@ -355,6 +409,7 @@ function download(options) {
 	var filePath = options.path || '';
 	var bucketStr = options.bucket || '';
 	var keyStr = options.key || '';
+	var regionStr = options.region || nconf.get('REGION') || '';
 
 	if (akStr === '' || skStr === '') {
 		console.error('  还没有进行初始化设置,请先使用命令 `ks3 init` 进行初始化');
@@ -425,6 +480,17 @@ function download(options) {
 			} else {
 				callback(null, keyStr);
 			}
+		},
+		function(callback) {
+			if (!regionStr) {
+				//console.log('    请输入Bucket所在位置(HANGZHOU|BEIJING|HONGKONG|AMERICA|SHANGHAI):  ');
+				var region = 'HANGZHOU';
+				nconf.set('REGION', region);
+				nconf.save();
+				callback(null, region);
+			} else {
+				callback(null, regionStr);
+			}
 		}], function(err, results) {
 			if (err) {
 				throw err;
@@ -432,12 +498,14 @@ function download(options) {
 				var flag = "----------------------------";
 				var bucket = results[0];
 				var key = results[1];
+				var region = results[2];
 				nconf.set('BUCKET', bucket);
+				nconf.set('REGION',region);
 				nconf.save();
 
 				console.log('    开始下载');
 				console.log(flag);
-				var client = new KS3(akStr, skStr, bucket);
+				var client = new KS3(akStr, skStr, bucket, region);
 				filePath = filePath.replace(/(\\\s)/ig, ' ');
 
 				client.download.start({
