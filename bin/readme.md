@@ -58,7 +58,7 @@ ks3 upload -p [path] -b [bucket] -k [key] --withsubdir -r [region]
 `-p --path` : 开发者制定要上传文件夹或者文件的地址   
 `-b --bucket` : 指定上传文件存储的bucket   
 `-k --key` : 如果上传的path为文件,则为文件名,如果上传的path是文件夹,则为文件夹名称   
-`--withsubdir` : 在上传文件夹的过程中,是否上传子文件夹,默认不上传,加上本参数,上传子文件夹内容
+`--withsubdir` : 在上传文件夹的过程中,是否上传子文件夹,默认不上传,加上本参数,上传子文件夹内容    
 `-r --region` : Bucket所在Region，有效值为：HANGZHOU|BEIJING|HONGKONG|AMERICA|SHANGHAI
 
 例如:   
