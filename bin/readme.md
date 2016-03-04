@@ -9,7 +9,7 @@
 
 
 ### 准备条件
-1. 安装[nodejs]以及[npm] 
+1. 安装[nodejs](http://nodejs.org/)以及[npm](https://www.npmjs.org)
 
 ### 安装
 
@@ -18,7 +18,7 @@
 	```
 	npm install -g ks3
 	```
-- 尝鲜版安装
+- 最新版安装
 
 	```
 	npm install -g ks3@next
@@ -118,7 +118,3 @@ ks3 download -b $bucket -k $key -p $localpath
 
 - 什么是`分块上传`?   
   简单说就是把大文件拆成小文件上传,并且全部传完以后再合并生成大文件.避免大文件在上传过程中出意外,必须从头开始上传的问题.查看[官方文档-分块上传](http://ks3.ksyun.com/doc/api/multipart_upload.html)
-
-
-[nodejs]:http://nodejs.org/
-[npm]:https://www.npmjs.org
