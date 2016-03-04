@@ -95,7 +95,7 @@ ks3 download -b $bucket -k $key -p $localpath
 	
 `-b --bucket` : 指定下载文件所在的bucket   
 `-k --key` : 指定下载文件对应的key,**注意,key不包含bucket名称**   
-`-p --path` : 下载文件的本地存储地址
+`-p --path` : 下载文件的本地存储地址    
 `-r --region` : Bucket所在Region，有效值为：HANGZHOU|BEIJING|HONGKONG|AMERICA|SHANGHAI
 
 例如:
