@@ -44,7 +44,7 @@ ks3 init -a [ak] -s [sk] -b [bucket]
 
 `-a --ak` : 开发者的AK(Access Key)   
 `-s --sk` : 开发者AK对应的SK(Access Key Secret)   
-`-b --bucket` : 开发要使用哪个Bucket,非必须,可以在每个具体命令中指定
+`-b --bucket` : 开发要使用哪个Bucket,非必须,可以在每个具体命令中指定    
 `-r --region` : Bucket所在Region，非必须，可在每个具体命令中指定，有效值为：HANGZHOU|BEIJING|HONGKONG|AMERICA|SHANGHAI
 
 也可以直接输入`ks3 init`进入交互模式
