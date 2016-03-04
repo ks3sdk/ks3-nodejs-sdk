@@ -195,7 +195,7 @@ function init(options) {
 	function(callback) {
 		if (!regionStr) {
 			promptly.prompt(stepRegion, {
-					validator: check.bucketName,
+					validator: check.region,
 					default:
 						regionStr
 				},

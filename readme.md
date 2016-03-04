@@ -88,7 +88,7 @@ SDK方法详细介绍参见，[SDK详细介绍](http://ks3.ksyun.com/doc/sdk/nod
 
 ## KS3 
   
-关于命令行工具,文档请查看 `./bin/readme.md`,或者[查看这里](https://github.com/StoneRen/ks3-node-sdk/tree/master/bin#user-content-ks3-命令行文档)
+关于命令行工具,文档请查看 `./bin/readme.md`,或者[查看这里](https://github.com/ks3sdk/ks3-nodejs-sdk/blob/master/bin/readme.md#ks3-命令行文档)
 
 功能包括上传文件和文件夹.上传过程中会根据文件大小进行简单上传和分块上传
 
