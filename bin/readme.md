@@ -13,15 +13,10 @@
 
 ### 安装
 
-- 稳定版安装   
+- 命令行工具安装
 
 	```
-	npm install -g ks3
-	```
-- 最新版安装
-
-	```
-	npm install -g ks3@next
+	npm install -g ks3@cmd
 	```
 
 ## 命令解释
