@@ -1,13 +1,14 @@
 {
   "name": "ks3",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "本代码库为`金山云存储KS3`服务.主要提供`KS3 nodejs SDK`和`命令行工具`.",
   "main": "index.js",
   "bin": {
     "ks3": "bin/index.js"
   },
   "scripts": {
-    "test": "npm install -g mocha && mocha"
+    "test": "npm install -g mocha && mocha",
+    "postinstall": "sudo chmod a+w /usr/local/lib/node_modules/ks3/bin/developer.json"
   },
   "repository": {
     "type": "git",

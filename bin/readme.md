@@ -9,7 +9,7 @@
 
 
 ### 准备条件
-1. 安装[nodejs](http://nodejs.org/)以及[npm](https://www.npmjs.org)
+1. 安装[nodejs](http://nodejs.org/)以及[npm](https://www.npmjs.org) (新版nodejs自带npm，不需要安装npm）
 
 ### 安装
 
