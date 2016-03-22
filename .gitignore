@@ -34,7 +34,7 @@ dist/*
 
 
 cache/files/*.cache
-bin/developer.json
+# bin/developer.json
 
 # 下载测试文件
 test/assets/test_download_*
@@ -44,4 +44,7 @@ test/assets/screenshot*
 npm-debug.log
 .npmignore
 localtest.js
+
+#unit test
+unittest/*
 
