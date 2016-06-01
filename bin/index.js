@@ -56,7 +56,7 @@ var check = {
 		if(region in config.ENDPOINT ) {
 			return region;
 		}else {
-			throw new Error('    region不存在，有效值： HANGZHOU|BEIJING|HONGKONG|AMERICA|SHANGHAI')
+			throw new Error('    region不存在，有效值： BEIJING|HONGKONG|AMERICA|SHANGHAI')
 		}
 	}
 }
@@ -223,10 +223,14 @@ function init(options) {
 			var ak = results[0];
 			var sk = results[1];
 			var bucket = results[2];
+			var region = results[3];
 			nconf.set('AK', ak);
 			nconf.set('SK', sk);
 			if (bucket !== '') {
 				nconf.set('BUCKET', bucket);
+			}
+			if( region !== '') {
+				nconf.set('REGION',region);
 			}
 			nconf.save();
 		}
@@ -344,7 +348,7 @@ function upload(options) {
 		},
 		function(callback) {
 			if (!regionStr) {
-				var region = 'HANGZHOU';
+				var region = 'BEIJING';
 				nconf.set('REGION', region);
 				nconf.save();
 				callback(null, region);
@@ -483,8 +487,8 @@ function download(options) {
 		},
 		function(callback) {
 			if (!regionStr) {
-				//console.log('    请输入Bucket所在位置(HANGZHOU|BEIJING|HONGKONG|AMERICA|SHANGHAI):  ');
-				var region = 'HANGZHOU';
+				//console.log('    请输入Bucket所在位置(BEIJING|HONGKONG|AMERICA|SHANGHAI):  ');
+				var region = 'BEIJING';
 				nconf.set('REGION', region);
 				nconf.save();
 				callback(null, region);
