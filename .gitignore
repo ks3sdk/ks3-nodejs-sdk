@@ -48,3 +48,6 @@ localtest.js
 #unit test
 unittest/*
 
+#downloaded assets
+/test/assets/downloaddir/
+
