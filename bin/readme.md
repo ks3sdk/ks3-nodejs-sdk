@@ -104,7 +104,7 @@ ks3 download -b $bucket -k $key -p $localpath
 	// 或者直接指定bucket名称
 	ks3 download -b ks3-sdk-test -k test_download.txt -p d:\test.txt -r BEIJING
 	```
-说明：不指定region则默认为杭州region
+说明：不指定region则默认为北京region
 
 ## 帮助说明
 
