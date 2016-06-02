@@ -72,7 +72,8 @@ describe('upload a directory', function() {
 			fileSetting:{
 				isDeep:false,
 				ignore:/(.(swp|ds_store)$)/ig
-			}
+			},
+			ACL:'public-read'
 		},
 		function(err, data, res) {
 			should.not.exist(err);

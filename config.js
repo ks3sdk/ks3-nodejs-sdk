@@ -2,7 +2,7 @@ var path = require('path');
 
 module.exports = {
 	protocol:'http',
-	baseUrl:'kss.ksyun.com',
+	baseUrl:'ks3-cn-beijing.ksyun.com',
 	// 所有header设置的前缀
 	// ks3: kss , amazon s3: amz
 	prefix:'kss',
@@ -39,7 +39,7 @@ module.exports = {
 		this.baseUrl = this.ENDPOINT[region];
 	},
 	resetRegion: function(){
-		this.baseUrl = this.ENDPOINT.HANGZHOU;
+		this.baseUrl = this.ENDPOINT.BEIJING;
 		this.region = '';
 	}
 }
