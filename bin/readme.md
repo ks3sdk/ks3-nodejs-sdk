@@ -37,9 +37,12 @@ ks3 reset
 ks3 init -a [ak] -s [sk] -b [bucket]
 ```
 
-`-a --ak` : 开发者的AK(Access Key)   
-`-s --sk` : 开发者AK对应的SK(Access Key Secret)   
-`-b --bucket` : 开发要使用哪个Bucket,非必须,可以在每个具体命令中指定    
+`-a --ak` : 开发者的AK(Access Key)
+
+`-s --sk` : 开发者AK对应的SK(Access Key Secret)
+
+`-b --bucket` : 开发要使用哪个Bucket,非必须,可以在每个具体命令中指定
+
 `-r --region` : Bucket所在Region，非必须，可在每个具体命令中指定，有效值为：BEIJING|HONGKONG|AMERICA|SHANGHAI
 
 也可以直接输入`ks3 init`进入交互模式
@@ -50,10 +53,14 @@ ks3 init -a [ak] -s [sk] -b [bucket]
 ```
 ks3 upload -p [path] -b [bucket] -k [key] --withsubdir -r [region]
 ```
-`-p --path` : 开发者制定要上传文件夹或者文件的地址   
-`-b --bucket` : 指定上传文件存储的bucket   
-`-k --key` : 如果上传的path为文件,则为文件名,如果上传的path是文件夹,则为文件夹名称   
-`--withsubdir` : 在上传文件夹的过程中,是否上传子文件夹,默认不上传,加上本参数,上传子文件夹内容    
+`-p --path` : 开发者制定要上传文件夹或者文件的地址
+
+`-b --bucket` : 指定上传文件存储的bucket
+
+`-k --key` : 如果上传的path为文件,则为文件名,如果上传的path是文件夹,则为文件夹名称
+
+`--withsubdir` : 在上传文件夹的过程中,是否上传子文件夹,默认不上传,加上本参数,上传子文件夹内容
+
 `-r --region` : Bucket所在Region，有效值为：BEIJING|HONGKONG|AMERICA|SHANGHAI
 
 例如:   
@@ -88,9 +95,12 @@ ks3 upload -p [path] -b [bucket] -k [key] --withsubdir -r [region]
 ks3 download -b $bucket -k $key -p $localpath
 ```
 	
-`-b --bucket` : 指定下载文件所在的bucket   
-`-k --key` : 指定下载文件对应的key,**注意,key不包含bucket名称**   
-`-p --path` : 下载文件的本地存储地址    
+`-b --bucket` : 指定下载文件所在的bucket
+
+`-k --key` : 指定下载文件对应的key,**注意,key不包含bucket名称**
+
+`-p --path` : 下载文件的本地存储地址
+
 `-r --region` : Bucket所在Region，有效值为：BEIJING|HONGKONG|AMERICA|SHANGHAI
 
 例如:
