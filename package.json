@@ -7,8 +7,7 @@
     "ks3": "bin/index.js"
   },
   "scripts": {
-    "test": "npm install -g mocha && mocha",
-    "postinstall": "chmod a+w /usr/local/lib/node_modules/ks3/bin/developer.json"
+    "test": "npm install -g mocha && mocha"
   },
   "repository": {
     "type": "git",
