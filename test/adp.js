@@ -50,6 +50,10 @@ describe('Asynchronous Data Processing', function () {
         });
 
         it('avop : encode a video to flv format', function (done) {
+
+            //设置超时时间
+            this.timeout(30000);
+
             var key = 'a.mp4';
             var resultVideoName =  key.split('.')[0] + '1.flv';
 

@@ -51,3 +51,6 @@ unittest/*
 #downloaded assets
 /test/assets/downloaddir/
 
+# test upload（yaokuo）
+test/dist/*
+test/upload-test.js
