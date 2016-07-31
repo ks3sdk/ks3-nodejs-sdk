@@ -45,8 +45,10 @@ npm-debug.log
 .npmignore
 localtest.js
 
-#unit test
+#unit test and reporter
 unittest/*
+coverage.html
+lib-cov/
 
 #downloaded assets
 /test/assets/downloaddir/
