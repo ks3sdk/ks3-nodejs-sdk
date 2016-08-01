@@ -47,7 +47,7 @@ localtest.js
 
 #unit test and reporter
 unittest/*
-coverage.html
+coverage*.html
 lib-cov/
 
 #downloaded assets
