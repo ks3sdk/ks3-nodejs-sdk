@@ -45,9 +45,13 @@ npm-debug.log
 .npmignore
 localtest.js
 
-#unit test
+#unit test and report
 unittest/*
+lib-cov/
 
 #downloaded assets
 /test/assets/downloaddir/
 
+# test upload（yaokuo）
+test/dist/*
+test/upload-test.js
