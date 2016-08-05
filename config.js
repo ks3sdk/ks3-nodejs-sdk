@@ -20,6 +20,8 @@ module.exports = {
 	uploadMaxSize : 5*1024*1024*1024,
 	// 分块上传的最小单位
 	chunkSize:5*1024*1024,
+	//文件分块上传阈值下线
+	multipartUploadMinSize: 100 * 1024 * 1024, // 100 MB
 	// 分块上传重试次数
 	retries:20,
 	// 上传文件信息缓存地址

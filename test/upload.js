@@ -11,10 +11,11 @@ var bigFile = process.env.BIGFILE || path.join(__dirname, './assets/风之万里
 var updir = process.env.UPDIR || path.join(__dirname, './assets/updir/');
 var debug = require('debug')('test-upload');
 
+var client = new KS3(ak, sk, bucketName,'HANGZHOU');
 
 describe('upload a file', function() {
 	it('upload a object with file content', function(done) {
-		var client = new KS3(ak, sk, bucketName);
+
 		var filePath = bigFile;
 		var fileName = (function(){
 			var s = filePath.split('/');
@@ -63,9 +64,9 @@ describe('test multipart upload', function() {
 		 * 创建一个大于100M的文件
 		 */
 		var mock_data = '金山云CDN服务将用户内容分发到全球700余个边缘节点，提高用户访问网站的响应速度与网站的可用性，通过智能监控实时调度异常节点资源，保证全局性能和可用性, 控制台可以帮助用户完成新增CDN加速域名、刷新/预加载缓存目录、URL等配置任务，并提供数据分析等统计图表。本文档主要介绍CDN控制台操作手册。';
-		mock_data = new Buffer(new Array(20).join(mock_data));
+		mock_data = new Buffer(new Array(30).join(mock_data));
 		var unit_size = mock_data.length;
-		var total = 101* 1024* 1024; //101 MB
+		var total = 6 * 1024* 1024; //5 MB
 		var sumSize = 0;
 		while(sumSize < total) {
 			fs.appendFileSync(tmpFilePath, mock_data);
@@ -75,7 +76,10 @@ describe('test multipart upload', function() {
 	});
 	it('upload a big file by multipart upload', function(done) {
 		this.timeout(900000);
-		var client = new KS3(ak, sk, bucketName,'HANGZHOU');
+
+		client.config({
+			multipartUploadMinSize: 5* 1024*1024
+		});
 		var key = 'multipartUpload/bigFile.tmp';
 		client.upload.start({
 				Bucket: bucketName,
@@ -97,9 +101,8 @@ describe('test multipart upload', function() {
 
 describe('upload a directory', function() {
 	it('upload a directory without subdirectory', function(done) {
-		var client = new KS3(ak, sk, bucketName);
+
 		var filePath = updir;
-		
 		var key = 'test_upload_directory_without_subdir';
 
 		client.upload.start({
@@ -120,9 +123,8 @@ describe('upload a directory', function() {
 	});
 
 	it('upload a directory with subdirectory', function(done) {
-		var client = new KS3(ak, sk, bucketName);
+
 		var filePath = updir;
-		
 		var key = 'test_upload_directory_with_subdir';
 
 		client.upload.start({
