@@ -79,6 +79,9 @@ var client = new KS3(AK,SK);
 `ks3.object.upload_abort` : 取消分块上传  
 `ks3.object.upload_list_part` : 罗列出已经上传的块  
 `ks3.upload.start` : 文件(文件夹)上传
+`ks3.auth.getQueryStringSignature` : 计算通过URL QueryString发送的签名
+`ks3.auth.getFormSignature` : 计算通过POST请求的表单实体发送的签名
+`ks3.auth.generateAuth` : 计算通过请求头发送的签名/Token（Authorization请求头的值）
  
 
 SDK方法详细介绍参见，[SDK详细介绍](http://ks3.ksyun.com/doc/sdk/nodejs.html#sdk详细介绍)
