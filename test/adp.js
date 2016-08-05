@@ -18,6 +18,7 @@ describe('Asynchronous Data Processing', function () {
 
     describe('Upload Trigger Processing', function () {
         it('avscrnshot: put a video and trigger a screen shot', function (done) {
+            this.timeout(30000);
             var key = 'a.mp4';
             var resultKey = 'screenshot_a.png';
             var filePath = path.join(__dirname, './assets/' + key);

@@ -15,7 +15,7 @@ var client = new KS3(ak, sk, bucketName,'HANGZHOU');
 
 describe('upload a file', function() {
 	it('upload a object with file content', function(done) {
-
+		this.timeout(300000);
 		var filePath = bigFile;
 		var fileName = (function(){
 			var s = filePath.split('/');
