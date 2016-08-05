@@ -57,7 +57,7 @@ describe('upload a file', function() {
 });
 
 describe('test multipart upload', function() {
-	var tmpFilePath = path.join(__dirname, './assets/updir/bigFileOver100M.tmp')
+	var tmpFilePath = path.join(__dirname, './assets/bigFileOver100M.tmp')
 	before(function() {
 		/**
 		 * 创建一个大于100M的文件
