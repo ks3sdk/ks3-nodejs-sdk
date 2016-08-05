@@ -57,31 +57,59 @@ var client = new KS3(AK,SK);
 以下调用详细信息,可以访问[官方文档](http://ks3.ksyun.com/doc/api/index.html)
 
 `ks3.service.get` : 可以通过该操作来列出客户所有的 Bucket 信息   
+<br>
 
-`ks3.bucket.put` : 创建一个新的Bucket   
-`ks3.bucket.del` : 删除指定Bucket     
-`ks3.bucket.get` : 枚举Bucket内的Object   
+`ks3.bucket.put` : 创建一个新的Bucket
+
+`ks3.bucket.del` : 删除指定Bucket
+
+`ks3.bucket.get` : 枚举Bucket内的Object
+
 `ks3.bucket.head` : 获取Bucket元数据
-`ks3.bucket.getACL` : 获取Bucket ACL   
-`ks3.bucket.putACL` : 设置Bucket的acl  
-`ks3.bucket.getLogging` : 获得Bucket的日志信息   
-`ks3.bucket.putLogging` : 设置Bucket的日志信息   
 
-`ks3.object.del` : 删除指定Object  
-`ks3.object.get` : 下载该Object数据    
-`ks3.object.put` : 上传Object数据  
+`ks3.bucket.getACL` : 获取Bucket的ACL
+
+`ks3.bucket.putACL` : 设置Bucket的ACL
+
+`ks3.bucket.getLogging` : 获得Bucket的日志信息
+
+`ks3.bucket.putLogging` : 设置Bucket的日志信息   
+<br>
+
+`ks3.object.del` : 删除指定Object
+
+`ks3.object.get` : 下载该Object数据
+
+`ks3.object.put` : 上传Object数据
+
 `ks3.object.getAcl` : 获得Object的acl
+
 `ks3.object.putAcl` : 上传Object的acl
-`ks3.object.headObject` : 获取指定Object元数据  
-`ks3.object.multitpart_upload_init` : 调用这个接口会初始化一个分块上传并且返回一个upload id, upload id 用来标识属于当前object的具体的块，并且用来标识完成分块上传或者取消分块上传  
-`ks3.object.upload_part` : 初始化分块上传后，上传分块接口  
-`ks3.object.upload_complete` : 组装之前上传的块，然后完成分块上传。通过你提供的xml文件，进行分块组装。在xml文件中，块号必须使用升序排列。必须提供每个块的ETag值  
-`ks3.object.upload_abort` : 取消分块上传  
-`ks3.object.upload_list_part` : 罗列出已经上传的块  
+
+`ks3.object.headObject` : 获取指定Object元数据
+
+`ks3.object.multitpart_upload_init` : 调用这个接口会初始化一个分块上传并且返回一个upload id, upload id 用来标识属于当前object的具体的块，并且用来标识完成分块上传或者取消分块上传
+
+`ks3.object.upload_part` : 初始化分块上传后，上传分块接口
+
+`ks3.object.upload_complete` : 组装之前上传的块，然后完成分块上传。通过你提供的xml文件，进行分块组装。在xml文件中，块号必须使用升序排列。必须提供每个块的ETag值
+
+`ks3.object.upload_abort` : 取消分块上传
+
+`ks3.object.upload_list_part` : 罗列出已经上传的块
+<br>
+
 `ks3.upload.start` : 文件(文件夹)上传
+<br>
+
+`ks3.download.start`: 文件下载（分块下载）
+<br>
+
 `ks3.auth.getQueryStringSignature` : 计算通过URL QueryString发送的签名
+
 `ks3.auth.getFormSignature` : 计算通过POST请求的表单实体发送的签名
-`ks3.auth.generateAuth` : 计算通过请求头发送的签名/Token（Authorization请求头的值）  
+
+`ks3.auth.generateAuth` : 计算通过请求头发送的签名/Token（Authorization请求头的值）
 
 
 SDK方法详细介绍参见，[SDK详细介绍](http://ks3.ksyun.com/doc/sdk/nodejs.html#sdk详细介绍)
