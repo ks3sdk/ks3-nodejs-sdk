@@ -74,7 +74,7 @@ describe('test multipart upload', function() {
 		}
 	});
 	it('upload a big file by multipart upload', function(done) {
-		this.timeout(300000);
+		this.timeout(900000);
 		var client = new KS3(ak, sk, bucketName,'HANGZHOU');
 		var key = 'multipartUpload/bigFile.tmp';
 		client.upload.start({
