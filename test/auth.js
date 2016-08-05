@@ -1,8 +1,10 @@
 var auth = require('../lib/auth');
 var should = require('should');
+var KS3 = require('..');
 
 var ak = process.env.AK || 'WRHLHOZQD3OY3VTROMGQ';
 var sk = process.env.SK || 'dWSmyMmVcpahaZphUdyVz11myMIoCAsOKeZ6wi4T';
+var bucketName = process.env.TEST_BUCKET || 'ks3-sdk-test';
 
 describe('AUTH generateHeaders', function() {
 	it('return a empty string if we havent passed param', function() {
@@ -35,6 +37,7 @@ describe('AUTH generateHeaders', function() {
 });
 
 describe('AUTH generateToken', function() {
+	var client = new KS3(ak,sk,bucketName);
 	it('should generate a legal token', function() {
 		var body = '';
 		var reqSimple = {
@@ -43,7 +46,7 @@ describe('AUTH generateToken', function() {
 			uri: 'http://kss.ksyun.com',
 			resource: '/'
 		};
-		var tokenSimple = auth.generateToken(sk, reqSimple, body);
+		var tokenSimple = client.auth.generateToken(sk, reqSimple, body);
 		tokenSimple.should.equal('2lxTJjvP1ndsKASapBxLeIUzhkQ=');
 
 		var reqWithHeader = {
@@ -55,14 +58,14 @@ describe('AUTH generateToken', function() {
 				attr_Acl: 'public-read-write'
 			}
 		};
-		var tokenWithHeader = auth.generateToken(sk, reqWithHeader, body);
+		var tokenWithHeader = client.auth.generateToken(sk, reqWithHeader, body);
 		tokenWithHeader.should.equal('+V7+A8ib9uLqix87F8BRfTbcHSg=');
 
 	});
 
 	it('should generate a legal signature with policy', function() {
 		var policy = {
-			"expiration": "2016-02-01T12:00:00.000Z",
+			"expiration": "2016-08-05T03:20:07.000Z",
 			"conditions": [
 				["eq","$bucket", "ks3-sdk-test"],
 				["starts-with", "$key", ""],
@@ -70,11 +73,13 @@ describe('AUTH generateToken', function() {
 				["starts-with", "$name", ""]
 			]
 		};
+		var signature = client.auth.getFormSignature(sk, policy);
+		signature.should.equal('/zkVr/qF0Gfpt/BUh4wML+ccjHY=');
+	});
 
-		var stringToSign = new Buffer(JSON.stringify(policy)).toString('base64');
-		var signature = auth.getSignature(sk, stringToSign);
-
-		signature.should.equal('psfeyCuOqPkR0+FToocad5ypNmk=');
+	it('should generate a legal signature for URL query string', function() {
+		var signature = client.auth.getQueryStringSignature(sk, 1470364688, "myBucketName", "myObjectKey");
+		signature.should.equal('cmS1SEsm62qmgSyK3vrDKTFCPxQ=');
 	});
 });
 
