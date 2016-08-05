@@ -18,7 +18,7 @@ describe('Asynchronous Data Processing', function () {
 
     describe('Upload Trigger Processing', function () {
         it('avscrnshot: put a video and trigger a screen shot', function (done) {
-            this.timeout(30000);
+            this.timeout(300000);
             var key = 'a.mp4';
             var resultKey = 'screenshot_a.png';
             var filePath = path.join(__dirname, './assets/' + key);
@@ -113,8 +113,8 @@ describe('Asynchronous Data Processing', function () {
 
                 var taskid = res.headers.taskid;
 
-                //等8s转换时间
-                setTimeout(getAVInfo, 8000);
+                //等10s转换时间
+                setTimeout(getAVInfo, 10000);
 
                 //通过queryadp获取生成的文件的元数据验证处理是否成功
                 function getAVInfo() {

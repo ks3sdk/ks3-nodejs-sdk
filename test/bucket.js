@@ -88,6 +88,7 @@ describe('API bucket', function() {
 		
 		describe('list objects', function() {
 			it('get objects without params', function(done) {
+				this.timeout(300000);
 				client.bucket.get(function(err, data, res) {
 					should.not.exist(err);
 					res.should.have.status(200);
