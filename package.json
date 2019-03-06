@@ -13,7 +13,7 @@
     "type": "git",
     "url": "https://github.com/ks3sdk/ks3-nodejs-sdk"
   },
-  "keywords" : [
+  "keywords": [
     "ks3",
     "ksyun",
     "sdk"
@@ -21,8 +21,8 @@
   "author": "",
   "contributors": [
     {
-      "name":"chenjin",
-      "email":"chenjin@kingsoft.com"
+      "name": "chenjin",
+      "email": "chenjin@kingsoft.com"
     }
   ],
   "license": "MIT",
@@ -37,7 +37,7 @@
     "crypto": "0.0.3",
     "debug": "^2.0.0",
     "mime": "^1.2.11",
-    "nconf": "^0.6.9",
+    "nconf": "^0.10.0",
     "progress": "^1.1.8",
     "promptly": "^0.2.0",
     "urllib": "^2.0.1"
