@@ -49,7 +49,7 @@ UPDIR=$path mocha test/upload.js
 
 ```
 var KS3 = require('ks3');
-var client = new KS3(AK,SK);
+var client = new KS3(AK,SK,bucket,region);
 ```
 
 ### api
@@ -74,6 +74,12 @@ var client = new KS3(AK,SK);
 `ks3.bucket.getLogging` : 获得Bucket的日志信息
 
 `ks3.bucket.putLogging` : 设置Bucket的日志信息   
+
+`ks3.bucket.getCrr` : 获得Bucket的跨区域复制规则
+
+`ks3.bucket.putCrr` : 设置Bucket的跨区域复制规则   
+
+`ks3.bucket.delCrr` : 删除Bucket的跨区域复制规则   
 <br>
 
 `ks3.object.del` : 删除指定Object
@@ -85,6 +91,12 @@ var client = new KS3(AK,SK);
 `ks3.object.getAcl` : 获得Object的acl
 
 `ks3.object.putAcl` : 上传Object的acl
+
+`ks3.object.getTagging` : 获得指定Object的tagging
+
+`ks3.object.putTagging` : 设置指定Object的tagging
+
+`ks3.object.delTagging` : 删除指定Object的tagging
 
 `ks3.object.headObject` : 获取指定Object元数据
 

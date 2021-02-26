@@ -61,8 +61,8 @@ function testPutCrr() {
 }
 
 // 测试添加跨区域复制规则
-testPutCrr();
+// testPutCrr();
 // 测试获取跨区域复制规则
-testGetCrr();
+// testGetCrr();
 // 测试删除跨区域复制规则
-testDeleteCrr();
+// testDeleteCrr();
