@@ -65,6 +65,8 @@ var client = new KS3(AK,SK,bucket,region);
 
 `ks3.bucket.get` : 枚举Bucket内的Object
 
+`ks3.bucket.getV2` : 枚举Bucket内的Object(携带版本控制信息)
+
 `ks3.bucket.head` : 获取Bucket元数据
 
 `ks3.bucket.getACL` : 获取Bucket的ACL
@@ -79,7 +81,11 @@ var client = new KS3(AK,SK,bucket,region);
 
 `ks3.bucket.putCrr` : 设置Bucket的跨区域复制规则   
 
-`ks3.bucket.delCrr` : 删除Bucket的跨区域复制规则   
+`ks3.bucket.delCrr` : 删除Bucket的跨区域复制规则  
+
+`ks3.bucket.getVersioning` : 获得Bucket的版本控制配置
+
+`ks3.bucket.putVersioning` : 设置Bucket的版本控制 
 <br>
 
 `ks3.object.del` : 删除指定Object
